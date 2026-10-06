@@ -20,7 +20,7 @@ object BiometricHelper {
         )
 
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Desbloquear app")
+            .setTitle("Coloca tu Huella")
             .setNegativeButtonText("Cancelar")
             .build()
 

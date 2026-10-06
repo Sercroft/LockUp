@@ -17,12 +17,15 @@ class LockupAccessibilityService : AccessibilityService() {
         val pkgName = event.packageName?.toString() ?: return
         val className = event.className?.toString() ?: return
 
-        if (pkgName == this.packageName) return
+        if (pkgName == packageName) return
 
         if (UnlockSessionManager.recentlyUnlocked()) return
+
         UnlockSessionManager.clearIfAppChanged(pkgName)
 
-        if (BlockedAppsRepository.isBlocked(pkgName) && !UnlockSessionManager.isUnlocked(pkgName)) {
+        if (BlockedAppsRepository.isBlocked(pkgName) &&
+            !UnlockSessionManager.isUnlocked(pkgName)
+        ) {
             launchLockScreen(pkgName, className)
         }
     }
@@ -37,8 +40,10 @@ class LockupAccessibilityService : AccessibilityService() {
                         Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
             )
         }
+
         startActivity(intent)
     }
 
-    override fun onInterrupt() {}
+    override fun onInterrupt() {
+    }
 }
